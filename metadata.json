@@ -1,0 +1,7 @@
+{
+  "name": "Copy of Precision Plumbing & Heating - Kelowna",
+  "description": "A high-end, professional website for Precision Plumbing and Heating in Kelowna, BC, featuring a Red Seal focus and AI-powered diagnostic tool.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
