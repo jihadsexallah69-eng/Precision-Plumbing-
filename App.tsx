@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { 
   Phone, 
@@ -19,8 +18,8 @@ import {
   Waves,
   Maximize2
 } from 'lucide-react';
-import { getDiagnosticAdvice } from './services/geminiService';
-import { ServiceCardProps, Testimonial } from './types';
+import { getDiagnosticAdvice } from './services/geminiService.ts';
+import { ServiceCardProps, Testimonial } from './types.ts';
 
 const Nav = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -35,7 +34,16 @@ const Nav = () => {
   const scrollTo = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const offset = 80;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
     }
     setIsMenuOpen(false);
   };
@@ -44,8 +52,8 @@ const Nav = () => {
     <nav className={`fixed top-0 w-full z-[100] transition-all duration-700 ease-in-out ${isScrolled ? 'bg-linen/95 border-b border-champagne/20 py-4 shadow-sm backdrop-blur-md' : 'bg-transparent py-8'}`}>
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex justify-between items-center">
         <div className="flex flex-col cursor-pointer group" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
-          <span className={`text-2xl font-serif tracking-[0.3em] transition-colors duration-500 leading-tight ${isScrolled ? 'text-onyx' : 'text-white'}`}>PRECISION</span>
-          <span className={`text-[7px] uppercase tracking-[0.5em] font-sans font-bold transition-colors duration-500 mt-1 ${isScrolled ? 'text-slate' : 'text-white/60'}`}>Kelowna • West Kelowna</span>
+          <span className={`text-2xl font-serif tracking-[0.15em] transition-colors duration-500 leading-none ${isScrolled ? 'text-onyx' : 'text-white'}`}>PRECISION</span>
+          <span className={`text-[9px] uppercase tracking-[0.25em] font-sans font-bold transition-colors duration-500 mt-1.5 ${isScrolled ? 'text-slate' : 'text-white/60'}`}>Kelowna • West Kelowna</span>
         </div>
 
         <div className="hidden lg:flex items-center space-x-12">
@@ -136,12 +144,12 @@ const App: React.FC = () => {
   };
 
   const galleryImages = [
-    { url: "https://images.unsplash.com/photo-1584622781564-1d9876a3e740?q=80&w=2070&auto=format&fit=crop", title: "Commercial Plumbing Installation", category: "Installation" },
-    { url: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069&auto=format&fit=crop", title: "Modern Mechanical Room", category: "Heating" },
-    { url: "https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=2070&auto=format&fit=crop", title: "Precision Pipework", category: "Service" },
-    { url: "https://images.unsplash.com/photo-1613274351662-793575971168?q=80&w=2070&auto=format&fit=crop", title: "Luxury Bath Fixtures", category: "Fixtures" },
-    { url: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2074&auto=format&fit=crop", title: "Water Heater Modernization", category: "Utility" },
-    { url: "https://images.unsplash.com/photo-1615873968403-89e068629275?q=80&w=2064&auto=format&fit=crop", title: "Emergency Response Vehicle", category: "Team" }
+    { url: "https://images.unsplash.com/photo-1584622781564-1d9876a3e740?q=80&w=2070&auto=format&fit=crop", title: "Commercial Plumbing", category: "Installation" },
+    { url: "https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069&auto=format&fit=crop", title: "Modern Boiler System", category: "Heating" },
+    { url: "https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=2070&auto=format&fit=crop", title: "Precision Piping", category: "Service" },
+    { url: "https://images.unsplash.com/photo-1613274351662-793575971168?q=80&w=2070&auto=format&fit=crop", title: "Custom Fixture Install", category: "Fixtures" },
+    { url: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2074&auto=format&fit=crop", title: "Water Heater Upgrade", category: "Utility" },
+    { url: "https://images.unsplash.com/photo-1615873968403-89e068629275?q=80&w=2064&auto=format&fit=crop", title: "Fleet & Logistics", category: "Team" }
   ];
 
   const testimonials: Testimonial[] = [
@@ -306,7 +314,7 @@ const App: React.FC = () => {
                 <img 
                   src={img.url} 
                   alt={img.title}
-                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700"
+                  className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-onyx/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
                   <span className="text-champagne text-[10px] uppercase tracking-widest font-bold mb-2">{img.category}</span>
